@@ -15,7 +15,7 @@ const oppositeType = (t) => {
   }
 };
 
-export default memo(function App() {
+function App() {
   const [button1Clicks, setButton1Clicks] = useState(0);
   const button1Click = useCallback(() => {
     setButton1Clicks((c) => c + 1);
@@ -41,7 +41,7 @@ export default memo(function App() {
     (e) => {
       setTooltipPlacement(e.target.value);
     },
-    [setTooltipPlacement],
+    [setTooltipPlacement]
   );
 
   // You could repeat the expression
@@ -50,9 +50,10 @@ export default memo(function App() {
   // hook can recalculate it automatically whenever button1Type
   // changes, one time only, and then you gain efficiency if
   // the result is used more than once.
-  const oppositeButtonType = useMemo(() => oppositeType(button1Type), [
-    button1Type,
-  ]);
+  const oppositeButtonType = useMemo(
+    () => oppositeType(button1Type),
+    [button1Type]
+  );
 
   return (
     <main>
@@ -83,7 +84,7 @@ export default memo(function App() {
                 setButton1Type(oppositeButtonType);
               }}
             >
-              Change Button 1 type to '{oppositeButtonType}'
+              Change Button 1 type to &apos;{oppositeButtonType}&apos;
             </Button>
           </Tippy>
 
@@ -134,4 +135,7 @@ export default memo(function App() {
       </div>
     </main>
   );
-});
+}
+
+const AppMemo = memo(App);
+export default AppMemo;
